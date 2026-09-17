@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ artist['name'] }} - Spotify Clone{% endblock %}
+{% block content %}
+  <p><a href="{{ url_for('main.index') }}">&larr; All artists</a></p>
+  <h1>{{ artist['name'] }}</h1>
+  <h2>Albums</h2>
+  <ul class="card-list">
+    {% for album in albums %}
+      <li class="card">
+        <a href="{{ url_for('main.album_detail', album_id=album['id']) }}">{{ album['title'] }}</a>
+      </li>
+    {% else %}
+      <li>No albums for this artist.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

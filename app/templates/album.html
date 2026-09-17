@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ album['title'] }} - Spotify Clone{% endblock %}
+{% block content %}
+  <p><a href="{{ url_for('main.artist_detail', artist_id=album['artist_id']) }}">&larr; {{ album['artist_name'] }}</a></p>
+  <h1>{{ album['title'] }}</h1>
+  <p class="muted">by {{ album['artist_name'] }}</p>
+  <table class="track-table">
+    <thead>
+      <tr><th>Title</th><th>Duration</th><th>Play</th><th>Add to playlist</th></tr>
+    </thead>
+    <tbody>
+      {% for track in tracks %}
+        <tr>
+          <td>{{ track['title'] }}</td>
+          <td>{{ track['duration_seconds'] }}s</td>
+          <td>
+            <form action="{{ url_for('main.play_track') }}" method="post">
+              <input type="hidden" name="track_id" value="{{ track['id'] }}">
+              <button type="submit">Play</button>
+            </form>
+          </td>
+          <td>
+            {% if playlists %}
+              <form action="" method="post">
+                <select name="playlist_id" onchange="this.form.action='/playlists/' + this.value + '/add'; this.form.submit();">
+                  <option value="">Add to...</option>
+                  {% for pl in playlists %}
+                    <option value="{{ pl['id'] }}">{{ pl['name'] }}</option>
+                  {% endfor %}
+                </select>
+                <input type="hidden" name="track_id" value="{{ track['id'] }}">
+              </form>
+            {% else %}
+              <a href="{{ url_for('main.playlist_list') }}">Create a playlist first</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Playlists - Spotify Clone{% endblock %}
+{% block content %}
+  <h1>Your Playlists</h1>
+  <form action="{{ url_for('main.create_playlist') }}" method="post" class="inline-form">
+    <input type="text" name="name" placeholder="New playlist name" required>
+    <button type="submit">Create</button>
+  </form>
+  <ul class="card-list">
+    {% for pl in playlists %}
+      <li class="card">
+        <a href="{{ url_for('main.playlist_detail', playlist_id=pl['id']) }}">{{ pl['name'] }}</a>
+      </li>
+    {% else %}
+      <li>No playlists yet -- create one above.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

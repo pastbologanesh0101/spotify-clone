@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ playlist['name'] }} - Spotify Clone{% endblock %}
+{% block content %}
+  <p><a href="{{ url_for('main.playlist_list') }}">&larr; All playlists</a></p>
+  <h1>{{ playlist['name'] }}</h1>
+  <p><a href="{{ url_for('main.queue_view', playlist_id=playlist['id']) }}">Open now-playing queue</a></p>
+  <table class="track-table">
+    <thead>
+      <tr><th>#</th><th>Title</th><th>Artist</th><th>Duration</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for t in tracks %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ t['title'] }}</td>
+          <td>{{ t['artist_name'] }}</td>
+          <td>{{ t['duration_seconds'] }}s</td>
+          <td>
+            <form action="{{ url_for('main.remove_from_playlist', playlist_id=playlist['id'], playlist_track_id=t['playlist_track_id']) }}" method="post">
+              <button type="submit">Remove</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5">This playlist is empty. Add tracks from an album page.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

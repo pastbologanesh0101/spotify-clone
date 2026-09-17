@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Spotify Clone{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('main.index') }}">Spotify Clone</a>
+    <nav>
+      <a href="{{ url_for('main.index') }}">Browse</a>
+      <a href="{{ url_for('main.playlist_list') }}">Playlists</a>
+      <a href="{{ url_for('main.most_played') }}">Most Played</a>
+    </nav>
+    <form class="search-form" action="{{ url_for('main.search') }}" method="get">
+      <input type="text" name="q" placeholder="Search tracks or artists..." value="{{ request.args.get('q', '') }}">
+      <button type="submit">Search</button>
+    </form>
+  </header>
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer">
+    <p>Demo project. All audio is synthetically generated (sine-wave tones) -- not real music. See README.</p>
+  </footer>
+</body>
+</html>

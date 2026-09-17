@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Most Played - Spotify Clone{% endblock %}
+{% block content %}
+  <h1>Most Played</h1>
+  <table class="track-table">
+    <thead>
+      <tr><th>#</th><th>Title</th><th>Artist</th><th>Plays</th></tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ row['title'] }}</td>
+          <td>{{ row['artist_name'] }}</td>
+          <td>{{ row['play_count'] }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4">No plays recorded yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

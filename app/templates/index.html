@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Browse Artists - Spotify Clone{% endblock %}
+{% block content %}
+  <h1>Artists</h1>
+  <ul class="card-list">
+    {% for artist in artists %}
+      <li class="card">
+        <a href="{{ url_for('main.artist_detail', artist_id=artist['id']) }}">{{ artist['name'] }}</a>
+      </li>
+    {% else %}
+      <li>No artists yet. Run <code>flask --app app seed</code> to load the demo library.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

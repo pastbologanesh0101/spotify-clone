@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Search - Spotify Clone{% endblock %}
+{% block content %}
+  <h1>Search</h1>
+  {% if q %}
+    <p class="muted">Results for "{{ q }}"</p>
+    <ul class="card-list">
+      {% for track in tracks %}
+        <li class="card">
+          <strong>{{ track['title'] }}</strong> &mdash; {{ track['artist_name'] }} ({{ track['album_title'] }})
+        </li>
+      {% else %}
+        <li>No matches.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Enter a search term above to find tracks by title or artist.</p>
+  {% endif %}
+{% endblock %}

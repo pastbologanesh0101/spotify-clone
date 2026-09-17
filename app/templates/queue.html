@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Now Playing - {{ playlist['name'] }}{% endblock %}
+{% block content %}
+  <p><a href="{{ url_for('main.playlist_detail', playlist_id=playlist['id']) }}">&larr; {{ playlist['name'] }}</a></p>
+  <h1>Now Playing</h1>
+  {% if current_track %}
+    <div class="now-playing">
+      <h2>{{ current_track['title'] }}</h2>
+      <p>{{ current_track['duration_seconds'] }}s</p>
+    </div>
+    <div class="queue-controls">
+      {% if prev_id %}
+        <a class="button" href="{{ url_for('main.queue_view', playlist_id=playlist['id'], current=prev_id) }}">&laquo; Previous</a>
+      {% else %}
+        <span class="button disabled">&laquo; Previous</span>
+      {% endif %}
+      {% if next_id %}
+        <a class="button" href="{{ url_for('main.queue_view', playlist_id=playlist['id'], current=next_id) }}">Next &raquo;</a>
+      {% else %}
+        <span class="button disabled">Next &raquo;</span>
+      {% endif %}
+    </div>
+  {% else %}
+    <p>This playlist is empty.</p>
+  {% endif %}
+{% endblock %}
